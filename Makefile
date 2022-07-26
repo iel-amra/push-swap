@@ -15,15 +15,20 @@ ${NAME} : ${OBJ} ${LIBFT}
 checkLibft :
 	make -C libft
 
-${OBJ_DIR}/%.o : ${SRC_DIR}/%.c ${HEADER}
+${OBJ_DIR}/%.o : ${SRC_DIR}/%.c ${HEADER} | ${OBJ_DIR}
 	gcc -include "header/principal.h" -Wall -Wextra -Werror -c $< -o $@
 
+${OBJ_DIR} : 
+	mkdir $@
 clean :
 	rm -f ${OBJ}
+	make -C libft clean
 
 fclean : clean
 	rm -f ${NAME}
+	rm -f ${OBJ}
+	make -C libft fclean
 
-re : fclean ${NAME}
+re : fclean all
 
 .PHONY : clean fclean re checkLibft
