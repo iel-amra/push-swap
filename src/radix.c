@@ -3,17 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   radix.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: iel-amra <iel-amra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/24 17:02:44 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/07/25 18:00:16 by iel-amra         ###   ########lyon.fr   */
+/*   Created: 2022/07/27 15:41:04 by iel-amra          #+#    #+#             */
+/*   Updated: 2022/07/28 13:30:03 by iel-amra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+int	get_parity(int nb, int bit)
+{
+	int	parity;
+
+	nb >> bit + 3;
+	parity = 0;`
+	while (nb > 0)
+	{
+		nb /= 4;
+		parity = 1 - parity;
+	}
+	return (parity);
+}
+
+int	get_last_bit(int nb, int bit)
+{
+	nb >> bit;
+	return (nb % 4);
+}
 
 int	pass_selected(int bit, t_stacks *stacks, int mode)
 {
 	int	nb;
-	int last_bits;
+	int	last_bits;
 	int	parity;
 
 	nb = int_content(stacks->a);
@@ -22,23 +42,38 @@ int	pass_selected(int bit, t_stacks *stacks, int mode)
 	if ((mode & FIRST_P && ((last_bits == 2 && parity) || last_bits == 3))
 		|| (mode & SECOND_P && ((last_bits == 1 && parity) || last_bits == 4)))
 	{
-		
+		if (mode | A_TO_B)
+			move(stacks, PA, 1);
+		else
+			move(stacks, PB, 1);
 	}
 	if ((mode & FIRST_P && ((last_bits == 3 && !parity) || last_bits == 2))
 		|| (mode & SECOND_P && ((last_bits == 4 && !parity) || last_bits == 1)))
 	{
-		
+		if (mode | A_TO_B)
+		{
+			move(stacks, PA, 1);
+			move(stacks, RB, 1);
+		}
+		else
+		{
+			move(stacks, PB, 1);
+			move(stacks, RA, 1);
+		}
 	}
 	else
 	{
-
+		if (mode | A_TO_B)
+			move(stacks, RA, 1);
+		else
+			move(stacks, RB, 1);
 	}
 }
 
 void	radix(int bit, t_stacks *stacks, int len, int mode)
 {
 	int	i;
-	int nb_still;
+	int	nb_still;
 
 	i = 0;
 	while (i < len)
