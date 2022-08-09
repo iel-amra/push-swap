@@ -30,11 +30,9 @@ void	ft_putulong_hexa(unsigned long n, int decal, int fd)
 int	print_pointer(va_list args, char *flags, int fd)
 {
 	void	*pointeur;
-	int		len;
 
 	(void) flags;
 	pointeur = va_arg(args, void *);
-	len = len_long_hexa((unsigned long) pointeur) + 2;
 	ft_putstr_fd("0x", fd);
 	ft_putulong_hexa((unsigned long) pointeur, 87, fd);
 	return (0);
@@ -44,12 +42,10 @@ int	len_print_pointer(va_list args, char *flags)
 {
 	va_list	dup_args;
 	void	*pointeur;
-	int		len;
 
 	(void) flags;
 	va_copy(dup_args, args);
 	pointeur = va_arg(dup_args, void *);
-	len = len_long_hexa((unsigned long) pointeur) + 2;
 	va_end(dup_args);
 	return (len_long_hexa((unsigned long) pointeur) + 2);
 }

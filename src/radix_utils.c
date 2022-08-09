@@ -12,23 +12,22 @@
 
 void	radix_push(t_stacks *stacks, int mode)
 {
-	if (mode | A_TO_B)
-		move(stacks, PA, 1);
-	else
+	if (mode & A_TO_B)
 		move(stacks, PB, 1);
+	else
+		move(stacks, PA, 1);
 }
 
-void radix_reverse_push(t_stacks *stacks, int mode)
+void	radix_reverse_push(t_stacks *stacks, int mode)
 {
-	if (mode | A_TO_B)
+	if (mode & A_TO_B)
 	{
-		move(stacks, PA, 1);
+		move(stacks, PB, 1);
 		move(stacks, RB, 1);
 	}
 	else
 	{
-		move(stacks, PB, 1);
+		move(stacks, PA, 1);
 		move(stacks, RA, 1);
 	}
 }
-

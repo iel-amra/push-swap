@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+/*
 int	len_long_hexa(unsigned long int n)
 {
 	int	len;
@@ -27,7 +27,7 @@ int	len_long_hexa(unsigned long int n)
 		len++;
 	}
 	return (len);
-}
+}*/
 
 int	print_hexa(va_list args, char *flags, int decal, int fd)
 {

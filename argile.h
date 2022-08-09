@@ -7,9 +7,15 @@
 # define B_TO_A 2
 # define FIRST_P 4
 # define SECOND_P 8
+# define LAST 16
 
-typedef s_struct s_stacks
+typedef struct s_stacks
 {
-	t_lst	*a;
-	t_lst	*b;
+	t_list	*a;
+	t_list	*b;
+	int	diff;
+	int	nb;
+	int	total;
 }	t_stacks;
+
+enum {PA, RA, RB, RR, PB, RRA, RRB, RRR, SA, SB, SS, SORTED};

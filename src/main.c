@@ -18,6 +18,31 @@ void	p_putnbr(void *nb)
 	ft_printf("%i\n", *(int *)nb);
 }
 
+void	put_stacks(void *src)
+{
+	t_stacks	stacks;
+
+	stacks = *(t_stacks *)src;
+	while (stacks.a || stacks.b)
+	{
+		if (stacks.a)
+		{
+			ft_printf("%i     ", int_content(stacks.a));
+			stacks.a = stacks.a->next;
+		}
+		else
+			ft_printf("      ");
+		if (stacks.b)
+		{
+			ft_printf("%i\n", int_content(stacks.b));
+			stacks.b = stacks.b->next;
+		}
+		else
+			ft_printf("\n");
+	}
+	ft_printf("\n\n");
+}
+
 int main(int argc, char **argv)
 {
 	t_stacks	stacks;
@@ -27,28 +52,24 @@ int main(int argc, char **argv)
 		ft_dprintf(2, "Parse Error\n");
 		return (1);
 	}
-	stacks.a = create_stack(argc, argv);
+	stacks.a = stack_from_argv(argc, argv);
+	stacks.b = (void *) 0;
 	if (!stacks.a)
 		return (1);
-	if (check_double(stacks.a))
-	{
-		ft_lstclear(stacks.a);
-		return (0);
-	}
-	ft_lstiter(stacks.a, p_putnbr);
 	if (solve(&stacks))
 	{
-		ft_lstclear(stacks.a, free);
+		ft_lstclear(&stacks.a, free);
 		return (1);
 	}
-	ft_lstclear(stacks.a, clear);
+	put_stacks(&stacks);
+	ft_lstclear(&stacks.a, free);
 	return (0);
 }
 
 int	parse(int argc, char **argv)
 {
 	int	i;
-	int j;
+	int	j;
 
 	if (argc == 1)
 		return (1);
