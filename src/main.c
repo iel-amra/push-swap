@@ -61,7 +61,6 @@ int main(int argc, char **argv)
 		ft_lstclear(&stacks.a, free);
 		return (1);
 	}
-	put_stacks(&stacks);
 	ft_lstclear(&stacks.a, free);
 	return (0);
 }
