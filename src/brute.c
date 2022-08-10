@@ -55,18 +55,21 @@ void	free_stacks(t_stacks *stacks)
 	free(stacks);
 }
 
-static int	*new_brute(int nb)
+static char	*new_brute(int nb)
 {
-	int	*brute;
+	char	*brute;
 	int	i;
 
 	i = ft_factoriel(nb + 1);
-	brute = malloc((i + 1) * sizeof(int));
+	i *= 3;
+	brute = malloc((i + 1) * sizeof(*brute));
 	if (!brute)
 		return ((void *) 0);
 	brute[0] = nb;
-	brute[i] = SORTED;
-	i--;
+	brute[i - 2] = SORTED;
+	brute[i - 1] = 0;
+	brute[i] = 0;
+	i -= 3;
 	while (i > 0)
 	{ 
 		brute[i] = -1;
@@ -75,7 +78,7 @@ static int	*new_brute(int nb)
 	return (brute); 
 }
 
-static t_list	*new_pile(int nb) 
+ /*stiatic t_list	*new_pile(int nb) 
 {
        	t_list		*pile;
 	t_stacks	*stacks;
@@ -102,11 +105,11 @@ static t_list	*new_pile(int nb)
 	stacks->nb = nb;
 	stacks->total = nb;
 	return (pile);
-}
+}*/
 
-int	*brute_force(int nb, int restricted)
+ /*char	*brute_force(int nb, int restricted)
 {
-	int		*brute;
+	char		*brute;
 	t_list		*pile;
 	t_list		*tmp;
 
@@ -140,7 +143,70 @@ int	*brute_force(int nb, int restricted)
 	}
 	ft_printf("compteur : %i\n", compteur);
 	return (brute);
+}*/
+
+int	brute_recur(char *brute, t_stacks *stacks, int nb, int restricted)
+{
+	int	i;
+	int	ret;
+	char	*best_move;
+	char	*new_best;
+
+	best_move = get_best_move(stacks, brute);
+	if (nb == 0)
+		return (try_moves(brute, stacks, restricted, best_move[1]));
+	i = PA;
+	ret = 0;
+	while (i <= SS)
+	{
+		while (i <= SS && forbidden_move(stacks, i, restricted))
+			i++;
+		move(stacks, i, 0);
+		new_best = get_best_move(stacks, brute); 
+		if (new_best[1] > best_move[1] && new_best[2] < best_move[2])
+		{
+			new_best[2] = best_move[2];
+			ret += brute_recur(brute, stacks, nb - 1, restricted);
+		}
+		move(stacks, get_opposite_move(i), 0);
+		i++;
+	}
+	return (ret);
 }
+
+char	*brute_force(int nb, int restricted)
+{
+	char		*brute;
+	t_stacks	stacks;
+	int		ret;
+	int		i;
+
+	brute = new_brute(nb);
+	if (!brute)
+		return ((void *) 0);
+	brute[0] = nb;
+	stacks.a = create_stack(nb);
+	if (!stacks.a)
+	{
+		free(brute);
+		return ((void *) 0);
+	}
+	stacks.b = (void *) 0;
+	stacks.diff = 0;
+	stacks.nb = nb;
+	stacks.total = nb;
+	i = 0;
+	ret = 1;
+	while (ret)
+	{
+		ret = brute_recur(brute, &stacks, i, restricted);
+		brute[ft_factoriel(nb + 1) * 3]++;
+		i++;
+	}
+	ft_lstclear(&stacks.a, free);
+	return (brute);
+}
+
 
 int	get_opposite_move(int	i)
 {
@@ -153,10 +219,10 @@ int	get_opposite_move(int	i)
 
 int	forbidden_move(t_stacks *stacks, int action, int restricted)
 {
-	ft_printf("In function, action = %i, restricted = %i\n", action, restricted);
-	if (action == PA /*&& !stacks->b*/)
+	//ft_printf("In function, action = %i, restricted = %i\n", action, restricted);
+	if (action == PA && !stacks->b)
 		return (1);
-	if (action == PB /*&& !stacks->a*/)
+	if (action == PB && !stacks->a)
 		return (1);
 	if ((action == RA || action == RR) && restricted && stacks->diff == stacks->nb - 1)
 		return (1);
@@ -164,14 +230,50 @@ int	forbidden_move(t_stacks *stacks, int action, int restricted)
 		return (1);
 	if (action == PB && restricted && stacks->nb == 0)
 		return (1);
-	ft_printf("returned 0 this time\n");
+	//ft_printf("returned 0 this time\n");
 	return (0);
 }
-int	try_moves(int *brute, t_list *pile, int restricted)
+
+int	try_moves(char *brute, t_stacks *stacks, int restricted, int circle)
+{
+	int		i;
+	int		ret;
+	char		*best_move;
+	static int	compteur = 0;
+
+	i = PA;
+	ret = 0;
+	if (compteur % 20000 == 0)
+		ft_printf("Circle : %i, compteur : %i\n", circle, compteur);
+	compteur++;
+	//put_stacks(stacks);
+	while (i <= SS)
+	{
+		//ft_dprintf(2, "Original :\n");
+		//put_stacks(stacks);
+		while (i <= SS && forbidden_move(stacks, i, restricted))
+			i++;
+		move(stacks, i, 0);
+		best_move = get_best_move(stacks, brute);
+		//ft_dprintf(2, "Altered best_move = %i\n", *best_move);
+		//put_stacks(stacks);
+		if (*best_move == -1)
+		{
+			ret++;
+			*best_move = get_opposite_move(i);
+			best_move[1] = circle + 1;
+		}
+		move(stacks, get_opposite_move(i), 0);
+		i++;
+	}
+	return (ret);
+}
+
+ /*int	try_moves(char *brute, t_list *pile, int restricted)
 {
 	int		i;
 	t_stacks	*copy;
-	int		*best_move;
+	char		*best_move;
 
 	i = PA;
 	while (i <= SS)
@@ -201,7 +303,7 @@ int	try_moves(int *brute, t_list *pile, int restricted)
 		i++;
 	}
 	return (0);
-}
+}*/
 
 static int	get_nb_at_pos(t_stacks *stacks, int pos)
 {
@@ -288,20 +390,21 @@ static int	get_rang(t_stacks *stacks, int pos)
 	return (rang);
 }
 
-int	*get_best_move(t_stacks *stacks, int *brute)
+char	*get_best_move(t_stacks *stacks, char *brute)
 {
 	int	i;
 	int	nb;
-	//int	*debug = brute;
+	//char	*debug = brute;
 	nb = brute[0];
 	i = 0;
 	while (i < nb)
 	{
-		brute += ft_factoriel(i) * get_rang(stacks, i);
+		brute += ft_factoriel(i) * get_rang(stacks, i) * 3;
 		i++;
 	}
-	brute += ft_factoriel(nb) * stacks->nb;
+	brute += ft_factoriel(nb) * stacks->nb * 3;
 	//put_stacks(stacks);
+	//ft_dprintf(2, "case 12 : %i\n", brute - debug);
 	//ft_dprintf(2, "pointeur : %i\n", brute + 1 - debug);
 	return (brute + 1);
 }

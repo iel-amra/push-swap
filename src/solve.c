@@ -10,6 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+int	ft_pow(int nb, int exp)
+{
+	int	res;
+
+	res = 1;
+	while (exp-- > 0)
+		res *= nb;
+	return (res);
+}
+
 static int	get_nb_bit(int nb)
 {
 	int	n_bit;
@@ -46,7 +56,7 @@ int	solve(t_stacks *stacks)
 	int	nb_bit_max;
 	int	i;
 	int	nb_max;
-	int	*brute;
+	char	*brute;
 
 	nb_max = get_nb_max(stacks->a);
 	nb_bit_max = get_nb_bit(nb_max);
@@ -57,19 +67,19 @@ int	solve(t_stacks *stacks)
 		radix(i + 2, stacks, nb_max + 1, B_TO_A | LAST * (i + 4 >= nb_bit_max));	
 		i += 4;
 	}
-	//brute = brute_force(nb_bit_max % 4, 0);
-	brute = brute_force(5, 1);
-	
+	brute = brute_force(nb_max + 1, 0);
+	//brute = brute_force(4, 0);	
 	//test
 	stacks->nb = nb_max + 1;
 	stacks->total = nb_max + 1;
 	stacks->diff = 0;
-	int best_move = *get_best_move(stacks, brute);
+	char best_move = *get_best_move(stacks, brute);
 	while (best_move != SORTED)
 	{
 		move(stacks, best_move, 1);
 		best_move = *get_best_move(stacks, brute);
 	}
+	free(brute);
 	//test
 	return (0);
 }

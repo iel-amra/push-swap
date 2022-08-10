@@ -38,8 +38,6 @@ void	move(t_stacks *stacks, int action, int verbose)
 	{
 		if (stacks->diff < stacks->nb - 1)
 			stacks->diff++;
-		else 
-			ft_printf("HERE\n");
 		rx(&stacks->a);
 	}
 	if (action == RB && verbose && stacks->b && stacks->b->next)
@@ -56,8 +54,6 @@ void	move(t_stacks *stacks, int action, int verbose)
 	{
 		if (stacks->diff > 0)
 			stacks->diff--;
-		else 
-			ft_printf("HERE\n");
 		rrx(&stacks->a);
 	}
 	if (action == RRB && verbose && stacks->b && stacks->b->next)
@@ -69,6 +65,6 @@ void	move(t_stacks *stacks, int action, int verbose)
 		ft_printf("rrr\n");
 
 	//ft_dprintf(2, "After : diff = %i, nb = %i\n", stacks->diff, stacks->nb);
-	if (verbose)
-		put_stacks(stacks);
+	//if (verbose)
+	//	put_stacks(stacks);
 }
