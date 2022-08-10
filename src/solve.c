@@ -6,7 +6,7 @@
 /*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:42:50 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/07/25 14:51:38 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/10 17:57:16 by iel-amra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	solve(t_stacks *stacks)
 		radix(i + 2, stacks, nb_max + 1, B_TO_A | LAST * (i + 4 >= nb_bit_max));	
 		i += 4;
 	}
-	brute = brute_force(nb_max + 1, 0);
+	brute = brute_force(nb_max + 1);
 	//brute = brute_force(4, 0);	
 	//test
 	stacks->nb = nb_max + 1;
