@@ -74,8 +74,9 @@ int	solve(t_stacks *stacks)
 			best_move = *get_best_move(stacks, brute);
 		}
 		free(brute);
+		return (0);
 	}
-	i =  0;//nb_bit_max % 4;
+	i = 0; //nb_bit_max % 4;
 	while (i < nb_bit_max)
 	{
 		radix(i, stacks, nb_max + 1, A_TO_B);
