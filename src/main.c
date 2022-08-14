@@ -6,7 +6,7 @@
 /*   By: iel-amra <iel-amra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 16:51:16 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/07/23 18:57:53 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/14 15:02:19 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ void	put_stacks(void *src)
 	{
 		if (stacks.a)
 		{
-			ft_printf("%i     ", int_content(stacks.a));
+			ft_dprintf(2, "%i     ", int_content(stacks.a));
 			stacks.a = stacks.a->next;
 		}
 		else
-			ft_printf("      ");
+			ft_dprintf(2, "      ");
 		if (stacks.b)
 		{
-			ft_printf("%i\n", int_content(stacks.b));
+			ft_dprintf(2, "%i\n", int_content(stacks.b));
 			stacks.b = stacks.b->next;
 		}
 		else
-			ft_printf("\n");
+			ft_dprintf(2, "\n");
 	}
-	ft_printf("\n\n");
+	ft_dprintf(2, "\n\n");
 }
 
 int main(int argc, char **argv)
@@ -75,7 +75,7 @@ int	parse(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (!ft_isdigit(argv[i][0]) && argv[i][0] != '-')
+		if ((!ft_isdigit(argv[i][0]) && argv[i][0] != '-') || (argv[i][0] == '-' && argv[i][1] == '\0'))
 			return (1);
 		j = 1;
 		while (argv[i][j])

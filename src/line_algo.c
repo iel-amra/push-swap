@@ -153,6 +153,8 @@ int	stop_recur(t_stacks *stacks, int **line, int nb)
 
 	//static int	compteur = 0;
 
+	//ft_printf("%i\n", compteur);
+
 	i = 0;
 	while (i++ < nb)
 		move(stacks, RRA, 0);
@@ -170,7 +172,7 @@ int	stop_recur(t_stacks *stacks, int **line, int nb)
 /*
 	if (score_tab(*line, nb) >= 0) 
 	{
-		ft_printf("%i\n", compteur);
+		ft_printf("%i Sep : %i\n", compteur, (*line)[nb]);
 	   	print_tab(*line, nb);
 	}
 	compteur++;
@@ -181,11 +183,16 @@ int	stop_recur(t_stacks *stacks, int **line, int nb)
 int	score_tab(int *line, int nb)
 {
 	int	i;
+	int	pivot;
 
+	pivot = 1;
 	i = line[nb];
+	if (i < nb - 1 && line[i] < line[i + 1])
+			pivot = -1;
+	i++;
 	while (i < nb - 1)
 	{
-		if (line[i] < line[i + 1])
+		if (line[i] * pivot < line[i + 1] * pivot)
 			return (-1);
 		i++;
 	}
