@@ -6,7 +6,7 @@
 /*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:42:50 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/08/14 18:27:31 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/14 20:52:42 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,67 +77,68 @@ int	prep_second_step(t_stacks *stacks, int *data, int *line)
 {
 	int	i;
 	int	moved;
-	
+
 	moved = 0;
 	i = line[data[0]];
 	if (i >= data[0] - 1 || line[i] > line[i + 1])
 		return (moved);
-	while (int_content(stacks->b) > int_content(stacks->a) && is_in_tab(line, int_content(stacks->a), i) && (int_content(stacks->a) != line[0] || !moved))
+	while (int_content(stacks->b) > int_content(stacks->a)
+		&& is_in_tab(line, int_content(stacks->a), i)
+		&& (int_content(stacks->a) != line[0] || !moved))
 	{
 		move(stacks, RA, data[1]);
 		moved = 1;
 	}
-	return ((moved && int_content(stacks->a) == line[0]) + (!moved && int_content(stacks->a) == line[0]) * -1 );
+	return ((moved && int_content(stacks->a) == line[0])
+		+ (!moved && int_content(stacks->a) == line[0]) * -1);
+}
+
+void	move_downward(t_stacks *stacks, int verbose, int *line, int *moved)
+{
+	int	last;
+
+	if (int_content(stacks->a) == line[0] && *moved == 0)
+		*moved = -1;
+	*moved = 0;
+	move(stacks, RRA, verbose);
+	last = int_content(ft_lstlast(stacks->a));
+	while (stacks->b && int_content(stacks->a) > int_content(stacks->b)
+		&& (int_content(stacks->a) <= line[0]
+			|| last < int_content(stacks->b)))
+		move(stacks, PA, verbose);
 }
 
 void	line_second(t_stacks *stacks, int *data, int *line, int moved)
 {
 	int	sep;
-	int last;
+	int	last;
 
 	sep = line[data[0]];
 	if (sep == data[0])
 		return ;
 	last = int_content(ft_lstlast(stacks->a));
-	if ((moved == 1 || !is_in_tab(line, int_content(stacks->a), sep)) && stacks->b && last < int_content(stacks->b))
+	if ((moved == 1 || !is_in_tab(line, int_content(stacks->a), sep))
+		&& stacks->b && last < int_content(stacks->b))
 	{
 		moved = 0;
 		move(stacks, PA, data[1]);
 	}
-	while (stacks->b && moved != 1 && int_content(stacks->a) > int_content(stacks->b) && (moved == -1 || last < int_content(stacks->b)))
+	while (stacks->b && moved != 1
+		&& int_content(stacks->a) > int_content(stacks->b)
+		&& (moved == -1 || last < int_content(stacks->b)))
 		move(stacks, PA, data[1]);
-	while (moved != -1 && is_in_tab(line, last, sep) && stacks->b && last > int_content(stacks->b))
+	while (moved != -1 && is_in_tab(line, last, sep)
+		&& stacks->b && last > int_content(stacks->b))
 	{
-		if (int_content(stacks->a) == line[0] && moved == 0)
-			moved = -1;
-		moved = 0;
-		move(stacks, RRA, data[1]);
+		move_downward(stacks, data[1], line, &moved);
 		last = int_content(ft_lstlast(stacks->a));
-		while (stacks->b && int_content(stacks->a) > int_content(stacks->b) && (int_content(stacks->a) <= line[0] || last < int_content(stacks->b)))
-			move(stacks, PA, data[1]);
 	}
 }
-/*
- void	line_second(t_stacks *stacks, int nb, int *line)
-{
-	int	sep;
-	int last;
-
-	sep = line[nb];
-	if (sep == nb)
-		return ;
-	last = int_content(ft_lstlast(stacks->a));
-	while (is_in_tab(line, last, sep) && last > line[nb - 1] && int_content(stacks->a) != line[0])
-	{
-		move(stacks, RRA, 1);
-		last = int_content(ft_lstlast(stacks->a));
-	}
-}*/
 
 int	get_smallest(int *tab, int nb)
 {
-	int smallest;
-	int i;
+	int	smallest;
+	int	i;
 
 	smallest = tab[0];
 	i = 1;
@@ -155,30 +156,33 @@ void	line_third_step(t_stacks *stacks, int *data, int *line)
 	int	smallest;
 
 	smallest = get_smallest(line, data[0]);
-	if (stacks->b && (!stacks->a || !is_in_tab(line, int_content(stacks->a), data[0]) || int_content(stacks->b) < int_content(stacks->a)))
+	if (stacks->b && (!stacks->a 
+				|| !is_in_tab(line, int_content(stacks->a), data[0])
+				|| int_content(stacks->b) < int_content(stacks->a)))
 		move(stacks, PA, data[1]);
 	move(stacks, RA, data[1]);
-	while (!stacks->a || stacks->b || (is_in_tab(line, int_content(stacks->a), data[0]) && int_content(stacks->a) != smallest))
+	while (!stacks->a || stacks->b 
+			|| (is_in_tab(line, int_content(stacks->a), data[0]) 
+				&& int_content(stacks->a) != smallest))
 	{
 		if (stacks->b && (!stacks->a || !is_in_tab(line, int_content(stacks->a), data[0]) 
-				|| int_content(stacks->a) == smallest || int_content(stacks->b) < int_content(stacks->a)))
+			|| int_content(stacks->a) == smallest 
+			|| int_content(stacks->b) < int_content(stacks->a)))
 				move(stacks, PA, data[1]);
 		move(stacks, RA, data[1]);
 	}
 }
 
-int	best_line_solve(t_stacks *stacks, int nb)
+int	get_best_correc(t_stacks *stacks, int nb)
 {
-	int			ret;
 	int 		i;
 	int			j;
 	t_stacks	*copy;
+	int			ret;
 
-	ret = line_solve(stacks, nb, 1);
 
-	if (ret >= 0)
-		return (ret);
 	i = 2;
+	ret = -1;
 	while (ret == -1)
 	{
 		copy = copy_stacks(stacks);
@@ -195,11 +199,23 @@ int	best_line_solve(t_stacks *stacks, int nb)
 		i++;
 	}
 	i--;
-	//ft_dprintf(2, "Found : %i\n", i);
-	if (line_solve(stacks, i, 1))
+	return (i);
+}
+
+int	best_line_solve(t_stacks *stacks, int nb)
+{
+	int			ret;
+	int 		correc;
+	int			i;
+
+	ret = line_solve(stacks, nb, 1);
+	if (ret >= 0)
+		return (ret);
+	correc = get_best_correc(stacks, nb);
+	if (line_solve(stacks, correc, 1))
 		return (1);
-	j = 0;
-	while (j++ < i)
+	i = 0;
+	while (i++ < correc)
 		move(stacks, RRA, 1);
 	if (line_solve(stacks, nb, 1))
 		return (1);
@@ -216,57 +232,39 @@ int	line_solve(t_stacks *stacks, int nb, int verbose)
 	data[0] = nb;
 	data[1] = verbose;
 	get_best_sa(stacks, nb, &line, &best_sa);
-	if (!line)
-		return (1);
-
-	/*
+	free(line);
 	move_sa_binary(stacks, nb, best_sa, 0);
 	if (score_line(stacks, nb, &line) == -1)
 	{
 		move_sa_binary(stacks, nb, best_sa, 1);
-		int i = 0;
-		line_solve(stacks, nb - 4);
-		while (i++ < nb - 4)
-			move(stacks, RRA, 1);
-	}
-	else
-		move_sa_binary(stacks, nb, best_sa, 1);
-	*/
-
-	move_sa_binary(stacks, nb, best_sa, 0);
-	if (score_line(stacks, nb, &line) == -1)
-	{
-		move_sa_binary(stacks, nb, best_sa, 1);
+		free(line);
 		return (-1);
 	}
-	else
-		move_sa_binary(stacks, nb, best_sa, 1);
-
-	get_best_sa(stacks, nb, &line, &best_sa);
-	move_sa_binary(stacks, nb, best_sa, 0);
-	if (score_line(stacks, nb, &line) == -1)
-	{
-		ft_dprintf(2, "Nothing found 2\n");
-		move_sa_binary(stacks, nb, best_sa, 1);
-		//put_stacks(stacks);
-		return (1);
-	}
 	move_sa_binary(stacks, nb, best_sa, 1);
-	if (!line)
-		return (1);
-
-
-	//print_tab(line, nb);
-	//put_stacks(stacks);
 	line_first_step(stacks, data, line, best_sa);
-	//put_stacks(stacks);
 	moved = prep_second_step(stacks, data, line);
-	//put_stacks(stacks);
 	line_second(stacks, data, line, moved);
-	//put_stacks(stacks);
 	line_third_step(stacks, data, line);
-	//put_stacks(stacks);
 	free(line);
+	return (0);
+}
+
+int solve_brute(t_stacks *stacks, int nb)
+{
+	char	best_move;
+	char	*brute;
+
+	brute = brute_force(nb, 0);
+	if (!brute)
+		return (1);
+	stacks->nb = nb;
+	best_move = *get_best_move(stacks, brute);
+	while (best_move != SORTED)
+	{
+		move(stacks, best_move, 1);
+		best_move = *get_best_move(stacks, brute);
+	}
+	free(brute);
 	return (0);
 }
 
@@ -275,48 +273,26 @@ int	solve(t_stacks *stacks)
 	int	nb_bit_max;
 	int	i;
 	int	nb_max;
-	char	*brute;
 	int	nb_line;
 	int	len_line;	
 
-	nb_max = get_nb_max(stacks->a);
-	nb_bit_max = get_nb_bit(nb_max);
-	
-/*
-	line_solve(stacks, nb_max + 1);
-	return (0);
-*/
-	
-	if (nb_max + 1 < 7)
-	{
-		brute = brute_force(nb_max + 1, 0);
-		if (!brute)
-			return (1);
-		stacks->nb = nb_max + 1;
-		char best_move = *get_best_move(stacks, brute);
-		while (best_move != SORTED)
-		{
-			move(stacks, best_move, 1);
-			best_move = *get_best_move(stacks, brute);
-		}
-		free(brute);
-		return (0);
-	}
-
+	nb_max = get_nb_max(stacks->a) + 1;
+	nb_bit_max = get_nb_bit(nb_max);	
+	if (nb_max < 8)
+		return (solve_brute(stacks, nb_max));
 	i = nb_bit_max % 4;
 	while (i < nb_bit_max)
 	{
-		radix(i, stacks, nb_max + 1, A_TO_B);
-		radix(i + 2, stacks, nb_max + 1,
-			B_TO_A | LAST * (i + 4 >= nb_bit_max));	
+		radix(i, stacks, nb_max, A_TO_B);
+		radix(i + 2, stacks, nb_max, B_TO_A | LAST * (i + 4 >= nb_bit_max));	
 		i += 4;
 	}
 	len_line = ft_pow(2, nb_bit_max % 4);
-	nb_line = (nb_max + 1) / len_line; 
+	nb_line = nb_max / len_line; 
 	i = 0;
 	while (i++ < nb_line)
 		best_line_solve(stacks, len_line);
-	if ((nb_max + 1) % len_line)
-		best_line_solve(stacks, (nb_max + 1) % len_line);
+	if (nb_max % len_line && best_line_solve(stacks, nb_max % len_line))
+			return (1);
 	return (0);
 }

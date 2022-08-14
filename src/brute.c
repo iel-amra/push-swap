@@ -78,11 +78,10 @@ static char	*new_brute(int nb)
 
 int	brute_recur(char *brute, t_stacks *stacks, int nb, int restricted)
 {
-	int	i;
-	int	ret;
+	int		i;
+	int		ret;
 	char	*best_move;
 	char	*new_best;
-
 
 	best_move = get_best_move(stacks, brute);
 	if (nb == 0)
@@ -106,6 +105,23 @@ int	brute_recur(char *brute, t_stacks *stacks, int nb, int restricted)
 	return (ret);
 }
 
+int	prepare_brute(int nb, char **brute, t_stacks *stacks)
+{
+	*brute = new_brute(nb);
+	if (!*brute)
+		return (1);
+	(*brute)[0] = nb;
+	stacks->a = create_stack(nb);
+	if (!stacks->a)
+	{
+		free(*brute);
+		return (1);
+	}
+	stacks->b = (void *) 0;
+	stacks->nb = nb;
+	return (0);
+}
+
 char	*brute_force(int nb, int restricted)
 {
 	char		*brute;
@@ -113,18 +129,8 @@ char	*brute_force(int nb, int restricted)
 	int		ret;
 	int		i;
 
-	brute = new_brute(nb);
-	if (!brute)
+	if (prepare_brute(nb, &brute, &stacks))
 		return ((void *) 0);
-	brute[0] = nb;
-	stacks.a = create_stack(nb);
-	if (!stacks.a)
-	{
-		free(brute);
-		return ((void *) 0);
-	}
-	stacks.b = (void *) 0;
-	stacks.nb = nb;
 	i = 0;
 	ret = 1;
 	while (ret)
@@ -164,11 +170,7 @@ int	try_moves(char *brute, t_stacks *stacks, int circle, int restricted)
 	int		i;
 	int		ret;
 	char		*best_move;
-/*	static int	compt;
 
-	if (compt % 1 == 0)
-		ft_printf("Compteur : %i\n", compt);
-	compt++;*/
 	i = PA;
 	ret = 0;
 	while (i <= SS)
@@ -179,7 +181,6 @@ int	try_moves(char *brute, t_stacks *stacks, int circle, int restricted)
 		best_move = get_best_move(stacks, brute);
 		if (*best_move == -1)
 		{
-			//put_stacks(stacks);
 			ret++;
 			*best_move = get_opposite_move(i);
 			best_move[1] = circle + 1;
@@ -209,16 +210,13 @@ static int	get_nb_at_pos(t_stacks *stacks, int pos)
 		travel = travel->next;
 		pos--;
 	}
-	if (!travel)
-		ft_dprintf(2, "Error get_nb_at_pos\n");
 	return (int_content(travel));
 }
 
 static int	get_rang(t_stacks *stacks, int pos)
 {
-	int	rang;
-	int	nb;
-
+	int		rang;
+	int		nb;
 	t_list	*travel;
 
 	nb = get_nb_at_pos(stacks, pos);
@@ -226,24 +224,20 @@ static int	get_rang(t_stacks *stacks, int pos)
 	if (!travel)
 		travel = stacks->b;
 	rang = 0;
-	while (pos > 0  && travel)
+	while (pos-- > 0  && travel)
 	{
 		if (nb > int_content(travel))
 			rang++;
 		travel = travel->next;
-		pos--;
 	}	
 	if (travel == (void *) 0)
 		travel = stacks->b;
-	while (pos > 0 && travel)
+	while (pos-- > 0 && travel)
 	{
 		if (nb > int_content(travel))
 			rang++;
 		travel = travel->next;
-		pos--;
 	}
-	if (!travel)
-		ft_dprintf(2, "Error get_rang\n");
 	return (rang);
 }
 
@@ -252,7 +246,6 @@ char	*get_best_move(t_stacks *stacks, char *brute)
 	int	i;
 	int	nb;
 
-	//put_stacks(stacks);
 	nb = brute[0];
 	i = 0;
 	while (i < nb)
@@ -261,6 +254,5 @@ char	*get_best_move(t_stacks *stacks, char *brute)
 		i++;
 	}
 	brute += ft_factoriel(nb) * ft_lstsize(stacks->a) * 3;
-	//ft_printf("best : %i\n", brute[1]);
 	return (brute + 1);
 }

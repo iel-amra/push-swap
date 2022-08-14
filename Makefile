@@ -6,7 +6,7 @@ SRC = $(wildcard ${SRC_DIR}/*.c)
 OBJ = $(SRC:${SRC_DIR}/%.c=${OBJ_DIR}/%.o)
 HEADER = $(wildcard ${HEADER_DIR}/*.h)
 LIBFT = libft/libft.a 
-FLAGS = -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
 
 all : checkLibft ${NAME}
 

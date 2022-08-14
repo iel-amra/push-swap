@@ -6,13 +6,13 @@
 /*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:35:09 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/07/23 19:21:02 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/14 20:59:57 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 t_list	*stack_from_argv(int argc, char **argv)
 {
-	int	i;
+	int		i;
 	t_list	*stack;
 	t_list	*travel;
 
@@ -26,7 +26,7 @@ t_list	*stack_from_argv(int argc, char **argv)
 		{
 			ft_lstclear(&stack, free);
 			ft_dprintf(2, "There are two equal numbers\n");
-			return ((void * ) 0);
+			return ((void *) 0);
 		}
 		travel = travel->next;
 		i++;
@@ -49,7 +49,7 @@ t_list	*create_stack(int nb)
 			free(new);
 			ft_lstclear(&stack, free);
 			ft_dprintf(2, "Malloc Error\n");
-			return ((void *) 0);	
+			return ((void *) 0);
 		}
 		*(int *) stack->content = nb;
 		nb--;
@@ -73,7 +73,7 @@ int	indice(char *str, int i, char **argv)
 	return (nb);
 }
 
-int int_content(t_list *stack)
+int	int_content(t_list *stack)
 {
 	if (!stack)
 	{

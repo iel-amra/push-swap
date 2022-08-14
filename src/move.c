@@ -19,7 +19,11 @@ void	move(t_stacks *stacks, int action, int verbose)
 	if (action == SS && verbose &&
 			((stacks->a && stacks->a->next) || (stacks->b && stacks->b->next)))
 		ft_printf("ss\n");
+	move_rotations(stacks, action, verbose);
+}
 
+void	move_rotations(t_stacks *stacks, int action, int verbose)
+{
 	if (action == RA && verbose && stacks->a && stacks->a->next)
 		ft_printf("ra\n");
 	if ((action == RA || action == RR) && stacks->a && stacks->a->next)

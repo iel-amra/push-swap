@@ -5,7 +5,6 @@ void	get_best_sa(t_stacks *stacks, int nb, int **line, int *best_sa)
 	int	score;
 	int	*new_line;
 
-	//*best_sa = -1;
 	i = 0;
 	best_score = -3;
 	*line = (void *) 0;
@@ -17,9 +16,11 @@ void	get_best_sa(t_stacks *stacks, int nb, int **line, int *best_sa)
 		{
 			free(*line);
 			*line = new_line;
+			new_line = (void *) 0;
 			best_score = score;
 			*best_sa = i;
 		}
+		free(new_line);
 		move_sa_binary(stacks, nb, i, 1);
 		i++;
 	}
@@ -206,6 +207,8 @@ int	choose_best_score(int *score, int **line, int **new)
 		free(*line);
 		*line = *new;
 	}
+	else
+		free(*new);
 	*new = (void *) 0;
 	if (score[1] == -2 || score[0] == -2)
 		return (-2);
