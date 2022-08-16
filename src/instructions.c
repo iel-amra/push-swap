@@ -6,10 +6,9 @@
 /*   By: iel-amra <iel-amra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 12:07:44 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/08/14 20:28:53 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/15 10:22:00 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 //push the first element of stack y to the top of stack x
 
@@ -24,7 +23,6 @@ void	px(t_list **stack_x, t_list **stack_y)
 	tmp->next = (*stack_x);
 	*stack_x = tmp;
 }
-
 
 //switch the two first element of the stack
 

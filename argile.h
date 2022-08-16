@@ -2,6 +2,7 @@
 # define PRINCIPAL_H
 
 # include "../libft/libft.h"
+# include <limits.h>
 
 # define A_TO_B 1
 # define B_TO_A 2
@@ -19,3 +20,5 @@ typedef struct s_stacks
 }	t_stacks;
 
 enum {PA, RA, RB, RR, PB, RRA, RRB, RRR, SA, SB, SS, SORTED};
+
+static const char str_move[11][4] = {"pa", "ra", "rb", "rr", "pb", "rra", "rrb", "rrr", "sa", "sb", "ss"};

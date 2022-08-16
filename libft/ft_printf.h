@@ -6,7 +6,7 @@
 /*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:53:10 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/07/21 17:55:07 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/15 10:47:58 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		print_var(char c, va_list args, char *flags, int fd);
 int		print_var_if_charset(const char **str, va_list args, int fd);
 int		ft_dprintf(int fd, const char *str, ...);
 int		ft_printf(const char *str, ...);
+int		ft_vprintf(int fd, const char *str, va_list args);
 int		print_big_hexa(va_list args, char *flags, int fd);
 int		len_print_big_hexa(va_list args, char *flags);
 int		print_char(va_list args, char *flags, int fd);

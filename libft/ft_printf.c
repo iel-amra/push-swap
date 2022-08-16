@@ -6,7 +6,7 @@
 /*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 18:20:26 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/07/21 20:05:49 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/15 10:46:25 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	print_var_if_charset(const char **str, va_list args, int fd)
 	return (count);
 }
 
-static int	ft_vprintf(int fd, const char *str, va_list args)
+int	ft_vprintf(int fd, const char *str, va_list args)
 {
 	int		count;
 	int		check;
@@ -116,22 +116,4 @@ static int	ft_vprintf(int fd, const char *str, va_list args)
 		}
 	}
 	return (count);
-}
-
-int	ft_dprintf(int fd, const char *str, ...)
-{
-	va_list	args;
-
-	va_start(args, str);
-	va_end(args);
-	return (ft_vprintf(fd, str, args));
-}
-
-int	ft_printf(const char *str, ...)
-{
-	va_list	args;
-
-	va_start(args, str);
-	va_end(args);
-	return (ft_vprintf(1, str, args));
 }

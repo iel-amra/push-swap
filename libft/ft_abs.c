@@ -6,13 +6,17 @@
 /*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:28:33 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/07/21 17:32:17 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/15 11:44:32 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_abs(int nb)
+# include <limits.h>
+
+unsigned int	ft_abs(int nb)
 {
 	if (nb > 0)
 		return (nb);
-	return (-nb);
+	if (nb != INT_MIN)
+		return (-nb);
+	return (- INT_MIN);
 }

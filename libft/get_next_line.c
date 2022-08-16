@@ -6,7 +6,7 @@
 /*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 16:09:27 by iel-amra          #+#    #+#             */
-/*   Updated: 2021/12/01 13:46:04 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/15 10:27:41 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int	read_in_t_list_gnl(t_list_gnl *my_strings, int fd)
 {
-	int		read_return;
+	int			read_return;
 	t_list_gnl	*travel;
 
 	read_return = 1;
@@ -102,9 +102,9 @@ char	*get_final(t_list_gnl *my_strings)
 
 char	*get_next_line(int fd)
 {
-	static char	ending[BUFFER_SIZE];
+	static char		ending[BUFFER_SIZE];
 	t_list_gnl		*my_strings;
-	char		*final;
+	char			*final;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return ((void *) 0);

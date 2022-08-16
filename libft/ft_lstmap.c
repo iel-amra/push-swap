@@ -6,7 +6,7 @@
 /*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 18:37:28 by iel-amra          #+#    #+#             */
-/*   Updated: 2021/11/10 11:19:40 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/15 10:28:53 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		}
 		elem = ft_lstnew(new_content);
 		if (!elem)
-		{
-			
+		{	
 			ft_lstclear(&new, del);
 			return ((void *) 0);
 		}

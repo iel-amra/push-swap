@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/15 10:13:52 by iel-amra          #+#    #+#             */
+/*   Updated: 2022/08/15 10:13:54 by iel-amra         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 void	move(t_stacks *stacks, int action, int verbose)
 {
 	if (action == PA && verbose && stacks->b)
@@ -16,8 +28,8 @@ void	move(t_stacks *stacks, int action, int verbose)
 		ft_printf("sb\n");
 	if ((action == SB || action == SS) && stacks->b && stacks->b->next)
 		sx(&stacks->b);
-	if (action == SS && verbose &&
-			((stacks->a && stacks->a->next) || (stacks->b && stacks->b->next)))
+	if (action == SS && verbose
+		&& ((stacks->a && stacks->a->next) || (stacks->b && stacks->b->next)))
 		ft_printf("ss\n");
 	move_rotations(stacks, action, verbose);
 }
@@ -32,10 +44,9 @@ void	move_rotations(t_stacks *stacks, int action, int verbose)
 		ft_printf("rb\n");
 	if ((action == RB || action == RR) && stacks->b && stacks->b->next)
 		rx(&stacks->b);
-	if (action == RR && verbose &&
-			((stacks->a && stacks->a->next) || (stacks->b && stacks->b->next)))
+	if (action == RR && verbose
+		&& ((stacks->a && stacks->a->next) || (stacks->b && stacks->b->next)))
 		ft_printf("rr\n");
-
 	if (action == RRA && verbose && stacks->a && stacks->a->next)
 		ft_printf("rra\n");
 	if ((action == RRA || action == RRR) && stacks->a && stacks->a->next)
@@ -44,7 +55,16 @@ void	move_rotations(t_stacks *stacks, int action, int verbose)
 		ft_printf("rrb\n");
 	if ((action == RRB || action == RRR) && stacks->b && stacks->b->next)
 		rrx(&stacks->b);
-	if (action == RRR && verbose &&
-			((stacks->a && stacks->a->next) || (stacks->b && stacks->b->next)))
+	if (action == RRR && verbose
+		&& ((stacks->a && stacks->a->next) || (stacks->b && stacks->b->next)))
 		ft_printf("rrr\n");
+}
+
+int	get_opposite_move(int i)
+{
+	if (i < PB)
+		return (i + 4);
+	if (i < SA)
+		return (i - 4);
+	return (i);
 }
