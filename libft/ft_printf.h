@@ -33,7 +33,7 @@ int		print_big_hexa(va_list args, char *flags, int fd);
 int		len_print_big_hexa(va_list args, char *flags);
 int		print_char(va_list args, char *flags, int fd);
 int		len_print_char(va_list args, char *flags);
-int		ft_putabs(long nb);
+int		ft_putabs(long nb, int fd);
 int		print_int(va_list args, char *flags, int fd);
 int		len_print_int(va_list args, char *flags);
 int		len_long_hexa(unsigned long int n);

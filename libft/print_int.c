@@ -27,13 +27,13 @@ static int	len_integer(int n)
 	return (len);
 }
 
-int	ft_putabs(long nb)
+int	ft_putabs(long nb, int fd)
 {
 	if (nb < 0)
 		nb *= -1;
 	if (nb >= 10)
-		ft_putabs(nb / 10);
-	ft_putchar_fd(nb % 10 + 48, 1);
+		ft_putabs(nb / 10, fd);
+	ft_putchar_fd(nb % 10 + 48, fd);
 	return ((int) nb);
 }
 
@@ -51,7 +51,7 @@ int	print_int(va_list args, char *flags, int fd)
 		write(fd, "0", 1);
 		len++;
 	}
-	ft_putabs(nb);
+	ft_putabs(nb, fd);
 	return (0);
 }
 
