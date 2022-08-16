@@ -6,7 +6,7 @@
 /*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:42:50 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/08/14 20:52:42 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/16 15:00:16 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,13 +202,16 @@ int	get_best_correc(t_stacks *stacks, int nb)
 		copy = copy_stacks(stacks);
 		if (!copy)
 			return (1);
-		if (line_solve(copy, i, 0) == 0)
+		if (line_solve(copy, i, 0) >= 0)
 		{
+			//ft_dprintf(2, "HERE\n");
 			j = 0;
 			while (j++ < i)
 				move(copy, RRA, 0);
 			ret = line_solve(copy, nb, 0);
+			//put_stacks(copy);
 		}
+		//ft_dprintf(2, "score : %i, i = %i\n", ret, i);
 		free_stacks(copy);
 		i++;
 	}
@@ -226,12 +229,12 @@ int	best_line_solve(t_stacks *stacks, int nb)
 	if (ret >= 0)
 		return (ret);
 	correc = get_best_correc(stacks, nb);
-	if (line_solve(stacks, correc, 1))
+	if (line_solve(stacks, correc, 1) == -2)
 		return (1);
 	i = 0;
 	while (i++ < correc)
 		move(stacks, RRA, 1);
-	if (line_solve(stacks, nb, 1))
+	if (line_solve(stacks, nb, 1) == -2)
 		return (1);
 	return (0);
 }
@@ -242,6 +245,15 @@ int	line_solve_params(t_stacks *stacks, int *data, int *line, int best_sa)
 	int	moved;
 
 	coups = 0;
+	/*
+	if (data[1])
+	{
+		ft_dprintf(2, "Begin : \n");
+		print_tab(line, data[0]);
+		ft_dprintf(2, "\n");
+		put_stacks(stacks);
+	}
+	*/
 	coups += line_first_step(stacks, data, line, best_sa);
 	coups += prep_second_step(stacks, data, line, &moved);
 	coups += line_second(stacks, data, line, moved);
@@ -279,6 +291,7 @@ int	line_solve(t_stacks *stacks, int nb, int verbose)
 	{
 		move_sa_binary(stacks, nb, best_sa, 1);
 		free(line);
+		//ft_dprintf(2, "HERE\n");
 		return (-1);
 	}
 	move_sa_binary(stacks, nb, best_sa, 1);

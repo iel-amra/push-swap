@@ -9,10 +9,10 @@ void	get_best_sa(t_stacks *stacks, int nb, int **line, int *best_sa)
 	best_score = 1000;
 	*line = (void *) 0;
 	while (i < ft_pow(2, nb - 1) && (i == 0 || *line))
-	{	
+	{
 		move_sa_binary(stacks, nb, i, 0);
 		score = score_line(stacks, nb, &new_line, i);	
-		if (score < best_score || score == -2)
+		if (score < best_score || score == -2 || i == 0)
 		{
 			free(*line);
 			*line = new_line;
@@ -24,8 +24,6 @@ void	get_best_sa(t_stacks *stacks, int nb, int **line, int *best_sa)
 		move_sa_binary(stacks, nb, i, 1);
 		i++;
 	}
-	//ft_dprintf(2, "TEST : %i\n", best_score);
-
 }
 
 int	true_bits(int x)
@@ -174,14 +172,15 @@ int	stop_recur(t_stacks *stacks, int **line, int nb, int sa)
 			(*line)[sep++] = int_content(stacks->a);
 		move(stacks, RA, 0);
 	}
-	if (score_tab(*line, nb) == -1)
+	if (score_tab(*line, nb) == -1 || (*line)[nb] == 0)
 		return (1000);
 	t_stacks *copy = copy_stacks(stacks); //proteger !
 	i = 0;
 	while (i++ < nb)
 		 move(copy, RRA, 0);
 	move_sa_binary(copy, nb, sa, 1);
-	//ft_dprintf(2, "%p\n", stacks);
+	//put_stacks(copy);
+	//print_tab(*line, nb);
 	score = line_solve_params(copy, (int[]){nb, 0}, *line, sa);
 	/*
 	if (score_tab(*line, nb) >= 0) 
@@ -192,7 +191,7 @@ int	stop_recur(t_stacks *stacks, int **line, int nb, int sa)
 	compteur++;
 	*/
 	free_stacks(copy);
-	//ft_dprintf(2, "score middle : %i\n", score);
+	//ft_dprintf(2, "score middle : %i, sep :%i\n", score, (*line)[nb]);
 	//return (score_tab(*line, nb));
 	return (score);
 }
