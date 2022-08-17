@@ -6,7 +6,7 @@
 /*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 10:05:52 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/08/15 10:09:57 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/16 15:53:31 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@ void	get_best_sa(t_stacks *stacks, int nb, int **line, int *best_sa)
 	int	*new_line;
 
 	i = 0;
-	best_score = -3;
+	best_score = 1000;
 	*line = (void *) 0;
 	while (i < ft_pow(2, nb - 1) && (i == 0 || *line))
-	{	
+	{
 		move_sa_binary(stacks, nb, i, 0);
-		score = score_line(stacks, nb, &new_line);
-		if ((score > best_score && (true_bits(i) < true_bits(*best_sa)
-					|| best_score < 0)) || score == -2)
+		score = score_line(stacks, nb, &new_line, i);
+		if (score < best_score || score == -2 || i == 0)
 		{
 			free(*line);
 			*line = new_line;

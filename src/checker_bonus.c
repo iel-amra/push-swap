@@ -6,7 +6,7 @@
 /*   By: iel-amra <iel-amra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 16:51:16 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/08/15 16:33:34 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/17 10:43:30 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	reader(t_stacks *stacks)
 		if (inst[len - 1] == '\n')
 			inst[len - 1] = '\0';
 		i = 0;
-		while (i < 11 && ft_strcmp(str_move[i], inst) != 0)
+		while (i < 11 && ft_strcmp(g_str_move[i], inst) != 0)
 			i++;
-		if (ft_strcmp(str_move[i], inst) == 0)
+		if (ft_strcmp(g_str_move[i], inst) == 0)
 			move(stacks, i, 0);
 		else
 		{

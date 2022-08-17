@@ -6,11 +6,11 @@
 /*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 10:06:02 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/08/15 10:21:28 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/17 10:55:10 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	score_line(t_stacks *stacks, int nb, int **line)
+int	score_line(t_stacks *stacks, int nb, int **line, int sa)
 {
 	int	i;
 	int	score;
@@ -24,7 +24,8 @@ int	score_line(t_stacks *stacks, int nb, int **line)
 		(*line)[i] = -1;
 		i++;
 	}
-	score = score_recur(stacks, nb, nb, line);
+	stacks->nb = nb;
+	score = score_recur(stacks, nb, line, sa);
 	if (score == -2)
 	{
 		free(*line);
@@ -33,7 +34,7 @@ int	score_line(t_stacks *stacks, int nb, int **line)
 	return (score);
 }
 
-int	score_recur(t_stacks *stacks, int step, int nb, int **line)
+int	score_recur(t_stacks *stacks, int step, int **line, int sa)
 {
 	int	*new;
 	int	i;
@@ -41,25 +42,43 @@ int	score_recur(t_stacks *stacks, int step, int nb, int **line)
 	int	score_tab[2];
 
 	if (step == 0)
-		return (stop_recur(stacks, line, nb));
+		return (stop_recur(stacks, line, stacks->nb, sa));
 	i = 0;
 	while ((*line)[i] != -1)
 		i++;
-	new = tab_int_copy(*line, nb + 1);
+	new = tab_int_copy(*line, stacks->nb + 1);
 	if (!new)
 		return (-2);
 	new[i] = int_content(stacks->a);
 	move(stacks, RA, 0);
-	score_tab[0] = -3;
+	score_tab[0] = 1000;
 	if ((*line)[0] == -1 || new[i - 1] < new[i])
-		score_tab[0] = score_recur(stacks, step - 1, nb, &new);
-	score_tab[1] = score_recur(stacks, step - 1, nb, line);
+		score_tab[0] = score_recur(stacks, step - 1, &new, sa);
+	score_tab[1] = score_recur(stacks, step - 1, line, sa);
 	move(stacks, RRA, 0);
 	score = choose_best_score(score_tab, line, &new);
 	return (score);
 }
 
-int	stop_recur(t_stacks *stacks, int **line, int nb)
+int	calcul_score(t_stacks *stacks, int **line, int nb, int sa)
+{
+	t_stacks	*copy;
+	int			score;
+	int			i;
+
+	copy = copy_stacks(stacks);
+	if (!copy)
+		return (-2);
+	i = 0;
+	while (i++ < nb)
+		move(copy, RRA, 0);
+	move_sa_binary(copy, nb, sa, 1);
+	score = line_solve_params(copy, 0, *line, sa);
+	free_stacks(copy);
+	return (score);
+}
+
+int	stop_recur(t_stacks *stacks, int **line, int nb, int sa)
 {
 	int	i;
 	int	sep;
@@ -78,31 +97,14 @@ int	stop_recur(t_stacks *stacks, int **line, int nb)
 			(*line)[sep++] = int_content(stacks->a);
 		move(stacks, RA, 0);
 	}
-	return (score_tab(*line, nb));
-}
-
-int	score_tab(int *line, int nb)
-{
-	int	i;
-	int	pivot;
-
-	pivot = 1;
-	i = line[nb];
-	if (i < nb - 1 && line[i] < line[i + 1])
-			pivot = -1;
-	i++;
-	while (i < nb - 1)
-	{
-		if (line[i] * pivot < line[i + 1] * pivot)
-			return (-1);
-		i++;
-	}
-	return (line[nb]);
+	if (score_tab(*line, nb) == -1 || (*line)[nb] == 0)
+		return (1000);
+	return (calcul_score(stacks, line, nb, sa));
 }
 
 int	choose_best_score(int *score, int **line, int **new)
 {
-	if (score[0] > score[1])
+	if (score[0] < score[1])
 	{
 		free(*line);
 		*line = *new;
@@ -112,7 +114,7 @@ int	choose_best_score(int *score, int **line, int **new)
 	*new = (void *) 0;
 	if (score[1] == -2 || score[0] == -2)
 		return (-2);
-	if (score[0] > score[1])
+	if (score[0] < score[1])
 		return (score[0]);
 	return (score[1]);
 }

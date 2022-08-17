@@ -6,7 +6,7 @@
 /*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:42:50 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/08/15 10:08:21 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/16 16:17:35 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	solve(t_stacks *stacks)
 	int	len_line;	
 
 	nb_max = get_nb_max(stacks->a) + 1;
-	nb_bit_max = get_nb_bit(nb_max);
+	nb_bit_max = get_nb_bit(nb_max - 1);
 	if (nb_max < 8)
 		return (solve_brute(stacks, nb_max));
 	i = nb_bit_max % 4;

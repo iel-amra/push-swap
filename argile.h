@@ -14,9 +14,7 @@ typedef struct s_stacks
 {
 	t_list	*a;
 	t_list	*b;
-	int	diff;
 	int	nb;
-	int	total;
 }	t_stacks;
 
 enum {PA, RA, RB, RR, PB, RRA, RRB, RRR, SA, SB, SS, SORTED};

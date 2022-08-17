@@ -6,43 +6,61 @@
 /*   By: iel-amra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 10:20:47 by iel-amra          #+#    #+#             */
-/*   Updated: 2022/08/15 10:20:48 by iel-amra         ###   ########lyon.fr   */
+/*   Updated: 2022/08/17 10:53:38 by iel-amra         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	prep_second_step(t_stacks *stacks, int *data, int *line)
+int	line_solve_params(t_stacks *stacks, int verbose, int *line, int best_sa)
 {
-	int	i;
+	int	coups;
 	int	moved;
 
-	moved = 0;
-	i = line[data[0]];
-	if (i >= data[0] - 1 || line[i] > line[i + 1])
-		return (moved);
-	while (int_content(stacks->b) > int_content(stacks->a)
-		&& is_in_tab(line, int_content(stacks->a), i)
-		&& (int_content(stacks->a) != line[0] || !moved))
-	{
-		move(stacks, RA, data[1]);
-		moved = 1;
-	}
-	return ((moved && int_content(stacks->a) == line[0])
-		+ (!moved && int_content(stacks->a) == line[0]) * -1);
+	coups = 0;
+	coups += line_first_step(stacks, verbose, line, best_sa);
+	coups += prep_second_step(stacks, verbose, line, &moved);
+	coups += line_second(stacks, verbose, line, moved);
+	coups += line_third_step(stacks, verbose, line);
+	return (coups);
 }
 
-void	move_downward(t_stacks *stacks, int verbose, int *line, int *moved)
+int	prep_second_step(t_stacks *stacks, int verbose, int *line, int *moved)
+{
+	int	i;
+	int	coups;
+
+	coups = 0;
+	*moved = 0;
+	i = line[stacks->nb];
+	if (i >= stacks->nb - 1 || line[i] > line[i + 1])
+		return (*moved);
+	while (int_content(stacks->b) > int_content(stacks->a)
+		&& is_in_tab(line, int_content(stacks->a), i)
+		&& (int_content(stacks->a) != line[0] || !*moved))
+	{
+		coups += move(stacks, RA, verbose);
+		*moved = 1;
+	}
+	*moved = (*moved && int_content(stacks->a) == line[0])
+		+ (!*moved && int_content(stacks->a) == line[0]) * -1;
+	return (coups);
+}
+
+int	move_downward(t_stacks *stacks, int verbose, int *line, int *moved)
 {
 	int	last;
+	int	coups;
 
+	coups = 0;
 	if (int_content(stacks->a) == line[0] && *moved == 0)
 		*moved = -1;
 	*moved = 0;
-	move(stacks, RRA, verbose);
+	coups += move(stacks, RRA, verbose);
 	last = int_content(ft_lstlast(stacks->a));
 	while (stacks->b && int_content(stacks->a) > int_content(stacks->b)
 		&& (int_content(stacks->a) <= line[0]
 			|| last < int_content(stacks->b)))
-		move(stacks, PA, verbose);
+		coups += move(stacks, PA, verbose);
+	return (coups);
 }
 
 int	get_smallest(int *tab, int nb)
@@ -75,7 +93,7 @@ int	get_best_correc(t_stacks *stacks, int nb)
 		copy = copy_stacks(stacks);
 		if (!copy)
 			return (1);
-		if (line_solve(copy, i, 0) == 0)
+		if (line_solve(copy, i, 0) >= 0)
 		{
 			j = 0;
 			while (j++ < i)
