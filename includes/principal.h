@@ -45,7 +45,7 @@ enum
 	SORTED
 };
 
-const static char	g_str_move[11][4] = {
+static const char	g_str_move[11][4] = {
 	"pa",
 	"ra",
 	"rb",

@@ -114,9 +114,7 @@ int	line_solve(t_stacks *stacks, int nb, int verbose)
 {
 	int	best_sa;
 	int	*line;
-	int	coups;
 
-	coups = 0;
 	stacks->nb = nb;
 	get_best_sa(stacks, nb, &line, &best_sa);
 	free(line);
