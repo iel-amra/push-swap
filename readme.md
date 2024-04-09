@@ -24,10 +24,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="https://github.com/iel-amra/So_long/blob/main/img/Push_swap.png?raw=true" alt="Logo" width="400" height="400">
+    <img src="https://github.com/iel-amra/push-swap/blob/master/Push_swap.png?raw=true" alt="Logo" width="400" height="400">
   </a>
 
-  <h3 align="center">So Long - The game</h3>
+  <h3 align="center">Push Swap - The game</h3>
 
   <p align="center">
     A hard, fun and somewhat frustrating plateformer !
