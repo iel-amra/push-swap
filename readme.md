@@ -27,7 +27,7 @@
     <img src="https://github.com/iel-amra/push-swap/blob/master/Push_swap.png?raw=true" alt="Logo" width="400" height="400">
   </a>
 
-  <h3 align="center">Push Swap - The game</h3>
+  <h3 align="center">Push Swap - The sorting algorithm</h3>
 
   <p align="center">
     A hard, fun and somewhat frustrating plateformer !
