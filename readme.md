@@ -118,7 +118,7 @@ This project was developed by Ihab El Amrani for 42.
 
 Ihab El amrani - [Linkedin](https://www.linkedin.com/in/ihab-el-amrani) - iel-amra@student.42lyon.fr
 
-Project Link: [https://github.com/iel-amra/So_long](https://github.com/iel-amra/So_long)
+Project Link: [https://github.com/iel-amra/push_swap](https://github.com/iel-amra/push_swap)
 
 My github : [https://github.com/iel-amra](https://github.com/iel-amra)
 
@@ -130,4 +130,3 @@ My github : [https://github.com/iel-amra](https://github.com/iel-amra)
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/ihab-el-amrani
-[product-screenshot]: https://github.com/iel-amra/push_swap/blob/main/img/screenshot.png?raw=true
