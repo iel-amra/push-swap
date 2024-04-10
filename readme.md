@@ -23,7 +23,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/iel-amra/So_long">
+  <a href="https://github.com/iel-amra/push_swap">
     <img src="https://github.com/iel-amra/push-swap/blob/master/Push_swap.png?raw=true" alt="Logo" width="400" height="400">
   </a>
 
@@ -130,5 +130,4 @@ My github : [https://github.com/iel-amra](https://github.com/iel-amra)
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/ihab-el-amrani
-[product-screenshot]: https://github.com/iel-amra/So_long/blob/main/img/screenshot.png?raw=true
-[map-screenshot]: https://github.com/iel-amra/So_long/blob/main/img/screenshot_map.png?raw=true
+[product-screenshot]: https://github.com/iel-amra/push_swap/blob/main/img/screenshot.png?raw=true
