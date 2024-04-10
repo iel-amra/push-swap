@@ -78,7 +78,7 @@ Push Swap was developed and tested only on ubuntu, but should work well on other
    cd push_swap && make
    ```
 
-That's it ! So_long is now installed on your machine.
+That's it ! push_swap is now installed on your machine.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -87,49 +87,24 @@ That's it ! So_long is now installed on your machine.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-To start the first map of the game, enter the following command in your terminal :
 ```
-./so_long map/map1.ber
-```
-
-You can launch any map you want with the following syntax :
-```
-./so_long [map_name].ber
+./push_swap [list of integers]
 ```
 
-Keys :
-* Deplacement : W,A,S,D or the arrow keys
-* Exit the game : Escape
-* Activate the fly cheat : V
+## Example
+
+```
+$> ./push_swap 4 67 3 87 23
+sa
+rra
+pb
+pb
+sa
+pa
+pa
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-## Map creation
-
-To create a map, create a file with a .ber extension and fill it with the following characters :
-- 0 : Air
-- 1 : Walls, Floor and Ceiling
-- P : Player starting position (Only 1)
-- C : Collectibles (At least 1)
-- E : Exit (At least 1)
-
-The map needs to be a rectangle, else the game won't start.
-
-For example the following file :
-
-```
-1111111
-1P0C0E1
-1111111
-```
-Gives the following map :
-
-<img src="https://github.com/iel-amra/So_long/blob/main/img/screenshot_map.png?raw=true" alt="map-screenshot" width="500"/>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- CONTACT -->
