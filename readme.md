@@ -107,6 +107,9 @@ pa
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+## Author
+This project was developed by Ihab El Amrani for 42.
+
 <!-- CONTACT -->
 ## Contact
 
