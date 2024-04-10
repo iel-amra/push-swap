@@ -23,7 +23,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/iel-amra/So_long">
     <img src="https://github.com/iel-amra/push-swap/blob/master/Push_swap.png?raw=true" alt="Logo" width="400" height="400">
   </a>
 
@@ -116,7 +116,7 @@ This project was developed by Ihab El Amrani for 42.
 <!-- CONTACT -->
 ## Contact
 
-Ihab El amrani - [Linkedin](www.linkedin.com/in/ihab-el-amrani) - iel-amra@student.42lyon.fr
+Ihab El amrani - [Linkedin](https://www.linkedin.com/in/ihab-el-amrani) - iel-amra@student.42lyon.fr
 
 Project Link: [https://github.com/iel-amra/So_long](https://github.com/iel-amra/So_long)
 
