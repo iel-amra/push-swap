@@ -30,7 +30,7 @@
   <h3 align="center">Push Swap - The sorting algorithm</h3>
 
   <p align="center">
-    A hard, fun and somewhat frustrating plateformer !
+    A special algorithm for a special case
   </p>
 </div>
 
@@ -39,44 +39,43 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-So long is a 2D platformer developed for linux with a library called Minilibx.
-
-The goal of the game is to pick up all the potions before exiting through the plant.
-
-![Product Name Screen Shot][product-screenshot]
-
-The game is purposely designed to be hard and frustrating.
-
-It's possible to create custom maps by creating a file with a .ber extension (see below)
-
-Since the subject only allowed Minilibx, all the physices and frame management is manually implemented. The collisions, animations and map building are manually implemented. The physics and display are optimized so the game can be rendered using the processor only, on one core (Imposed by the subject).
+Push Swap is a project at 42, a programming school, aimed at sorting algorithms. The goal of Push Swap is to write a program that sorts a stack of integers using a limited set of operations. The main challenge is to find the most efficient sorting algorithm and minimize the number of operations performed.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Rules
 
+* The game is composed of two stacks named a and b.
+* To start, a contains a random number of either positive or negative integers without any duplicates, with b empty.
+* The goal is to sort the numbers in stack a in ascending order.
+
+## Operations Allowed
+* sa: swap the first two elements of stack a
+* sb: swap the first two elements of stack b
+* ss: sa and sb simultaneously
+* pa: push the first element of stack a onto stack b
+* pb: push the first element of stack b onto stack a
+* ra: rotate stack a (shift all elements up by one). The first element becomes the last.
+* rb: rotate stack b (shift all elements up by one). The first element becomes the last.
+* rr: ra and rb simultaneously.
+* rra: reverse rotate stack a (shift all elements down by one). The last element becomes the first.
+* rrb: reverse rotate stack b (shift all elements down by one). The last element becomes the first.
+* rrr: rra and rrb simultaneously.
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-So_long was developed and tested only on ubuntu, but should work well on other debian based distribution
-
-### Prerequisites
-
-<p>MiniLibX for Linux requires <code class="language-plaintext highlighter-rouge">xorg</code>, <code class="language-plaintext highlighter-rouge">x11</code> and <code class="language-plaintext highlighter-rouge">zlib</code>, therefore you will need to install the following dependencies: <code class="language-plaintext highlighter-rouge">xorg</code>, <code class="language-plaintext highlighter-rouge">libxext-dev</code> and <code class="language-plaintext highlighter-rouge">zlib1g-dev</code>. Installing these dependencies on Ubuntu can be done as follows:</p>
-
-```
-sudo apt-get update && sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev
-```
+Push Swap was developed and tested only on ubuntu, but should work well on other debian based distribution
 
 ### Installation
 
 1. Clone the repo
    ```sh
-   git clone git@github.com:iel-amra/So_long.git
+   git clone git@github.com:iel-amra/push-swap.git
    ```
-2. Enter the So_long folder and compile
+2. Enter the push_swap folder and compile
    ```
-   cd So_long && make
+   cd push_swap && make
    ```
 
 That's it ! So_long is now installed on your machine.
