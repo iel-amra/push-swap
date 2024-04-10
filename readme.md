@@ -63,7 +63,7 @@ Push Swap is a project at 42, a programming school, aimed at sorting algorithms.
 * rrr: rra and rrb simultaneously.
 
 ## The Algorithm
-The algorithm used utilize a custom variant of radix in base 4 (2 bits) that I optimezed to minimze the number of operations. Since a simple application of this radix transfer the numbers from one stack to the other, it needs 2 operations to get the numbers in stack a again, wich is equivalent to sorting 4 bits of the numbers. The maximum bits are sorted with the algorithms, and if there are 3 or less unsorted bits, they are sorted with another completely custom algorithm wich is implemented in the line_algo.c file.
+The algorithm used utilize a custom variant of radix in base 4 (2 bits) that I optimezed to minimze the number of operations. Since a simple application of this radix transfer the numbers from one stack to the other, it needs 2 operations to get the numbers in stack a again, wich is equivalent to sorting 4 bits of the numbers. The maximum bits are sorted with this algorithm, and if there are 3 or less unsorted bits, they are sorted with another completely custom algorithm wich is implemented in the line_algo.c file.
 
 <!-- GETTING STARTED -->
 ## Getting Started
